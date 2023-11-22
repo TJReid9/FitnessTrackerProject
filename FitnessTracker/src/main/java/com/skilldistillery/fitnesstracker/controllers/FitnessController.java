@@ -28,15 +28,15 @@ public class FitnessController {
 	private FitnessService fitService;
 	
 	@GetMapping("fitness")
-	public List<FitnessTracker> getAllFitness(HttpServletResponse resp) {
+	public List<FitnessTracker> getFitness(HttpServletResponse res) {
 		return fitService.getAllFitness();
 	}
 	
-	@GetMapping("jams/{jamId}")
-	public FitnessTracker retrieveFitness(@PathVariable int fitId, HttpServletResponse resp) {
+	@GetMapping("fitness/{fitId}")
+	public FitnessTracker retrieveFitness(@PathVariable int fitId, HttpServletResponse res) {
 		FitnessTracker fitness = fitService.retrieveFitness(fitId);
-		if (fitness == null ) {
-			resp.setStatus(404);			
+		if(fitness == null) {
+			res.setStatus(404);
 		}
 		return fitness;
 	}
@@ -59,21 +59,21 @@ public class FitnessController {
 	}
 	
 	@PutMapping("fitness/{fitId}")
-	public FitnessTracker update(@PathVariable Integer fitId, @RequestBody FitnessTracker updatingFitness, HttpServletResponse res) {
-		FitnessTracker updatedFitness = null;
+	public FitnessTracker update(@PathVariable Integer fitId, @RequestBody FitnessTracker updatingFit, HttpServletResponse res) {
+		FitnessTracker updatedFit = null;
 		try {
-			updatedFitness = fitService.update(fitId, updatingFitness);
-			if (updatedFitness == null) {
+			updatedFit = fitService.update(fitId, updatingFit);
+			if (updatedFit == null) {
 				res.setStatus(404);
 			}
 		} catch (Exception e) {
 			res.setStatus(400);
 			e.printStackTrace();
 		}
-		return updatedFitness;
+		return updatedFit;
 	}
 	
-	@DeleteMapping("fitness/{fitId}")
+	@DeleteMapping("jams/{jamId}")
 	public void delete(@PathVariable Integer fitId, HttpServletResponse res) {
 		try {
 			fitService.delete(fitId);
@@ -88,5 +88,7 @@ public class FitnessController {
 		}
 		
 	}
-
+	
 }
+
+

@@ -3,10 +3,12 @@ package com.skilldistillery.fitnesstracker.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.skilldistillery.fitnesstracker.entities.FitnessTracker;
 import com.skilldistillery.fitnesstracker.repositories.FitnessRepository;
 
+@Service
 public class FitnessServiceImpl implements FitnessService {
 	
 	@Autowired
@@ -23,27 +25,24 @@ public class FitnessServiceImpl implements FitnessService {
 	}
 
 	@Override
-	public FitnessTracker create(FitnessTracker newFitness) {
-		if(newFitness != null) {
-			return fitRepo.saveAndFlush(newFitness);
+	public FitnessTracker create(FitnessTracker newFit) {
+		if(newFit != null) {
+			return fitRepo.saveAndFlush(newFit);
 		}
 		return null;
 	}
 
 	@Override
-	public FitnessTracker update(int fitId, FitnessTracker updatingFitness) {
+	public FitnessTracker update(int fitId, FitnessTracker editFit) {
 		FitnessTracker existing = fitRepo.searchById(fitId);
 		if(existing != null) {
-			existing.setDate(updatingFitness.getDate());
-			existing.setActivity(updatingFitness.getActivity());
-			existing.setLocation(updatingFitness.getLocation());
-			existing.setDuration(updatingFitness.getDuration());
-			existing.setNotes(updatingFitness.getNotes());
-			existing.setCreateDate(updatingFitness.getCreateDate());
-			existing.setLastUpdate(updatingFitness.getLastUpdate());
-			
+			existing.setDate(editFit.getDate());
+			existing.setActivity(editFit.getActivity());
+			existing.setLocation(editFit.getLocation());
+			existing.setDuration(editFit.getDuration());
+			existing.setNotes(editFit.getNotes());
 		}
-		return fitRepo.saveAndFlush(existing);
+		return null;
 	}
 
 	@Override
